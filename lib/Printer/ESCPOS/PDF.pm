@@ -54,15 +54,18 @@ sub new {
     my $class = shift;
     my $options = \%{ shift() || {} };
 
+    $options->{width} ||= 512;
+    $options->{margin} ||= 10;
+    $options->{width} += $options->{margin} * 2;
+
     $options->{pdf} = PDF::API2->new();
     $options->{page} = $options->{pdf}->page();
-    $options->{page}->mediabox($options->{width} ||= 512, $options->{height} ||= 1200);
+    $options->{page}->mediabox($options->{width}, $options->{height} ||= 1200000);
     $options->{font} = $options->{pdf}->corefont('Courier');
     $options->{font_bold} = $options->{pdf}->corefont('Courier-Bold');
     $options->{font_italic} = $options->{pdf}->corefont('Courier-Oblique');
     $options->{font_bold_italic} = $options->{pdf}->corefont('Courier-BoldOblique');
     $options->{fontsize} ||= 14;
-    $options->{margin} ||= 10;
     $options->{x} = $options->{margin};
     $options->{y} = $options->{height} - $options->{fontsize} - $options->{margin};
 
@@ -77,6 +80,7 @@ Outputs the generated PDF file to the given file.
 
 sub save_pdf {
     my ($self, $filename) = @_;
+    $self->{page}->mediabox(0, $self->{y} - $self->{margin}, $self->{width}, $self->{height});
     $self->{pdf}->saveas($filename);
 }
 
