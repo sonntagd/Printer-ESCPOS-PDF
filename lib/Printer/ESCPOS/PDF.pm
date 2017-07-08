@@ -10,10 +10,6 @@ use PDF::API2;
 
 Printer::ESCPOS::PDF - a hacky drop-in replacement for redirect Printer::ESCPOS output to a PDF file instead of a printer
 
-=head1 VERSION
-
-version 0.001
-
 =head1 SYNOPSIS
 
     use Printer::ESCPOS::PDF;
@@ -154,13 +150,13 @@ sub image {
     $gfx->image(
         $self->{pdf}->image_gd($gd),
         $self->{x},
-        $self->{y} - $height / 2,
-        $width / 2,
-        $height / 2,
+        $self->{y} - $height,
+        $width,
+        $height,
     );
 
     $self->{x} = $self->{margin};
-    $self->{y} -= int($height / 2);
+    $self->{y} -= $height;
 }
 
 sub tab {
