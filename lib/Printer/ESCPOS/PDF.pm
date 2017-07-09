@@ -74,7 +74,7 @@ sub new {
 
 =head2 save_pdf $filename
 
-Outputs the generated PDF file to the given file.
+Outputs the generated PDF to the given file.
 
 =cut
 
@@ -90,17 +90,18 @@ Returns the generated PDF as a string.
 
 =cut
 
+sub get_pdf {
+    my ($self) = @_;
+    $self->{page}->mediabox(0, $self->{y} - $self->{margin}, $self->{width}, $self->{height});
+    $self->{pdf}->stringify();
+}
+
 =head1 OTHER METHODS
 
 This module implements other methods to do the actual conversion which are 
 mostly overwritten from the original Printer::ESCPOS.
 
 =cut
-
-sub get_pdf {
-    my ($self) = @_;
-    $self->{pdf}->stringify();
-}
 
 sub text {
     my ($self, $string) = @_;
