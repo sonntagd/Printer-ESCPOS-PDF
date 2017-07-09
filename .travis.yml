@@ -17,7 +17,7 @@ matrix:
 before_install:
    - sudo apt-get -qq update
    - sudo apt-get install -y libdevice-usb-perl
-   - cpanm -f Device::USB
+   - cpanm --force Device::USB
    - git config --global user.name "TravisCI"
    - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
 install:
